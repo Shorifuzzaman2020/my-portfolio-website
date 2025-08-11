@@ -80,42 +80,54 @@ export default function App() {
 
   const projects = [
     {
-      title: "Portfolio Website",
-      description: "A personal portfolio to showcase my work and skills.",
+      title: "Tutor Solution",
+      description: "Tutor Solution connects students and tutors with easy registration, login, search, and booking. It features Firebase auth, MongoDB storage, and a clean, responsive UI with light/dark mode.",
       details:
         "Built with React, Tailwind, and Framer Motion. Fully responsive and animated.",
-      liveLink: "#",
-      githubLink: "#",
-      techStack: "React, Tailwind CSS, Framer Motion",
+      liveLink: "https://fir-auth-5fe90.web.app/",
+      githubLink: "https://github.com/Shorifuzzaman2020/Tutor-solution-client-side",
+      techStack: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "HTML"],
       challenges:
         "Learning Framer Motion for animations was challenging but rewarding.",
       improvements:
         "Plan to add a blog and multi-language support in future.",
-      image: null,
+      image: "/screencapture-fir-auth-5fe90-web-app-2025-08-11-23_13_28.png",
     },
     {
-      title: "E-Commerce Platform",
-      description: "Full-stack MERN project with authentication and payment integration.",
+      title: "GlobalScholarHub",
+      description: "A full-stack web application built with MongoDB, Express.js, React.js, and Node.js to streamline scholarship application, review, and approval processes. It allows students to apply for scholarships online, enables admins to manage applications efficiently, and provides a transparent system for status tracking.",
       details:
         "Uses MERN stack with secure authentication and Stripe integration.",
-      liveLink: "#",
-      githubLink: "#",
-      techStack: "MongoDB, Express, React, Node.js",
+      liveLink: "https://scholarship-handle.web.app/",
+      githubLink: "https://github.com/Shorifuzzaman2020/Scholarship-management-system-client-side",
+      techStack: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "HTML"],
       challenges: "Handling payments and authentication securely.",
       improvements: "Add recommendation engine.",
-      image: null,
+      image: "/screencapture-scholarship-handle-web-app-2025-08-11-23_15_02.png",
     },
     {
-      title: "IoT Dashboard",
-      description: "Real-time device monitoring with data visualization.",
+      title: "Recipe Book",
+      description: "A Recipe Sharing Application where users can discover, share, and save recipes, featuring user authentication, search and filter options, and an intuitive, responsive design for seamless cooking inspiration.",
       details:
         "Built using React, Chart.js, and MQTT for real-time IoT updates.",
-      liveLink: "#",
-      githubLink: "#",
-      techStack: "React, MQTT, Chart.js",
+      liveLink: "https://event-discovery-7571a.web.app/",
+      githubLink: "https://github.com/Shorifuzzaman2020/Recipe-sharing-client-side",
+      techStack: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "HTML"],
       challenges: "Real-time data syncing.",
       improvements: "Add mobile app companion.",
-      image: null,
+      image: "/screencapture-event-discovery-7571a-web-app-2025-08-11-23_12_07.png",
+    },
+    {
+      title: "Event Explorer",
+      description: "Event Explorer is a responsive React app that allows users to browse and manage tech events. It includes Firebase authentication (email/password and Google), user profiles, and interactive event sliders powered by Swiper.js. The app uses React Context for global user state and React Router for smooth navigation.",
+      details:
+        "Built using React, Chart.js, and MQTT for real-time IoT updates.",
+      liveLink: "https://event-discovery-project.web.app/",
+      githubLink: "https://github.com/Shorifuzzaman2020/Event-Explorer",
+      techStack: ["React", "Javascript", "Tailwind CSS", "HTML"],
+      challenges: "Real-time data syncing.",
+      improvements: "Add mobile app companion.",
+      image: "/screencapture-event-discovery-project-web-app-2025-08-11-23_10_04.png",
     },
   ];
 
@@ -217,18 +229,18 @@ export default function App() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
             >
-              <a href="#" aria-label="GitHub" className="hover:text-green-400 transition-colors duration-300">
+              <a href="https://github.com/Shorifuzzaman2020" target="_blank" aria-label="GitHub" className="hover:text-green-400 transition-colors duration-300">
                 <FaGithub />
               </a>
-              <a href="#" aria-label="LinkedIn" className="hover:text-green-400 transition-colors duration-300">
+              <a href="https://www.linkedin.com/in/mdshorifuzzaman2020/" target="_blank" aria-label="LinkedIn" className="hover:text-green-400 transition-colors duration-300">
                 <FaLinkedin />
               </a>
-              <a href="#" aria-label="Email" className="hover:text-green-400 transition-colors duration-300">
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=shorifuzzamansoil2020@gmail.com" target="_blank" aria-label="Email" className="hover:text-green-400 transition-colors duration-300">
                 <FaEnvelope />
               </a>
             </motion.div>
             <motion.div className="mt-8">
-              <a href="" className="bg-green-400 px-2 py-2 text-2xl rounded-lg font-bold">Resume</a>
+              <a href="https://drive.google.com/file/d/1rh3Kz3_C71ahbqlkqTCWE_wSz3AXcc3g/view?usp=sharing" target="_blank" className="bg-green-400 px-2 py-2 text-2xl rounded-lg font-bold">Resume</a>
             </motion.div>
           </div>
 
@@ -254,7 +266,7 @@ export default function App() {
       {/* About Section */}
       <section
         id="about"
-        className="py-20 px-6 max-w-4xl mx-auto text-center md:text-left"
+        className="pb-20 pt-10 px-6 max-w-4xl mx-auto text-center md:text-left"
       >
         <motion.h2
           className="text-4xl font-bold mb-8"
@@ -367,7 +379,7 @@ export default function App() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-6 max-w-6xl mx-auto">
+      {/* <section id="projects" className="py-20 px-6 max-w-6xl mx-auto">
         <motion.h2
           className="text-4xl font-bold text-center mb-12"
           initial={{ opacity: 0 }}
@@ -395,7 +407,6 @@ export default function App() {
           ))}
         </div>
 
-        {/* Modal */}
         <AnimatePresence>
           {selectedProject && (
             <motion.div
@@ -447,8 +458,80 @@ export default function App() {
             </motion.div>
           )}
         </AnimatePresence>
+      </section> */}
+
+      <section id="projects" className="py-20 px-6 max-w-7xl mx-auto">
+        <motion.h2
+          className="text-4xl font-bold text-center mb-16"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          Featured Projects
+        </motion.h2>
+
+        <div className="grid md:grid-cols-2 gap-12">
+          {projects.map((project, i) => (
+            <motion.div
+              key={i}
+              className="bg-[#1a1a2e] rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row items-center md:items-stretch"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Project Image */}
+              <div className="bg-gray-900 flex-shrink-0 w-full md:w-1/2 overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
+              {/* Project Details */}
+              <div className="p-6 flex flex-col justify-between w-full md:w-1/2">
+                <div>
+                  <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
+                  <p className="text-gray-300 mb-4">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.techStack.map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="px-3 py-1 bg-gray-700 text-sm rounded-full"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex gap-2">
+                  <a
+                    href={project.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center bg-green-500 hover:bg-green-700 text-white py-2 px-2 rounded-lg transition-colors duration-300"
+                  >
+                    🔗Live Demo
+                  </a>
+                  <a
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors duration-300"
+                  >
+                    <FaGithub className="text-xl" />
+                    Github
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </section>
-      
+
+
       {/* Contact Section */}
       <section id="contact" className="bg-gray-800 py-20 px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row gap-12">
