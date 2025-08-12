@@ -2,6 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from '@emailjs/browser';
+import { TbBrandCSharp } from "react-icons/tb";
+import { FaJava } from "react-icons/fa";
+import { SiCplusplus } from "react-icons/si";
+import { SiExpress } from "react-icons/si";
+import { BsFillCSquareFill } from "react-icons/bs";
+import { FaDownload } from "react-icons/fa6";
 import {
   FaGithub,
   FaLinkedin,
@@ -136,17 +142,20 @@ export default function App() {
     }
   };
 
-
-
   const skills = [
-    { icon: <FaJs className="text-yellow-400" />, name: "JavaScript" },
-    { icon: <FaReact className="text-cyan-400" />, name: "React" },
-    { icon: <FaNodeJs className="text-green-500" />, name: "Node.js" },
-    { icon: <FaDatabase className="text-purple-500" />, name: "MongoDB" },
+    { icon: <BsFillCSquareFill className="text-blue-400" />, name: "C" },
+    { icon: <SiCplusplus className="text-blue-600" />, name: "C++" },
+    { icon: <FaJava className="text-red-500" />, name: "Java" },
+    { icon: <TbBrandCSharp className="text-green-400" />, name: "C#" },
     { icon: <FaHtml5 className="text-orange-500" />, name: "HTML5" },
     { icon: <FaCss3Alt className="text-blue-500" />, name: "CSS3" },
+    { icon: <SiExpress className="text-gray-300" />, name: "Express.js" },
+    { icon: <FaDatabase className="text-purple-500" />, name: "MongoDB" },
+    { icon: <FaNodeJs className="text-green-500" />, name: "Node.js" },
+    { icon: <FaJs className="text-yellow-400" />, name: "JavaScript" },
+    { icon: <FaReact className="text-cyan-400" />, name: "React" },
   ];
-
+  const repeatedSkills = [...skills];
   const projects = [
     {
       title: "Tutor Solution",
@@ -309,8 +318,31 @@ export default function App() {
                 <FaEnvelope />
               </a>
             </motion.div>
-            <motion.div className="mt-8">
+            {/* <motion.div className="mt-8">
               <a href="https://drive.google.com/file/d/1rh3Kz3_C71ahbqlkqTCWE_wSz3AXcc3g/view?usp=sharing" target="_blank" className="bg-green-400 px-2 py-2 text-2xl rounded-lg font-bold">Resume</a>
+            </motion.div> */}
+            <motion.div className="mt-8">
+              <button
+                onClick={() => {
+                  // Open preview in a new tab
+                  window.open(
+                    "https://drive.google.com/file/d/1rh3Kz3_C71ahbqlkqTCWE_wSz3AXcc3g/view?usp=sharing",
+                    "_blank"
+                  );
+
+                  // Trigger download
+                  const link = document.createElement("a");
+                  link.href =
+                    "https://drive.google.com/uc?export=download&id=1rh3Kz3_C71ahbqlkqTCWE_wSz3AXcc3g";
+                  link.download = "YourName_Resume.pdf";
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
+                className="bg-green-400 px-4 py-2 text-2xl rounded-lg font-bold inline-flex items-center gap-2 hover:cursor-pointer"
+              >
+                <FaDownload /> Resume
+              </button>
             </motion.div>
           </div>
 
@@ -357,30 +389,37 @@ export default function App() {
           I'm a passionate developer with hands-on experience creating dynamic and responsive websites through personal projects and learning. Skilled in both front-end and back-end technologies, I enjoy turning ideas into functional applications. Outside of coding, I love traveling, watching movies, Playing chess, and exploring the latest tech trends.
         </motion.p>
       </section>
+      <section id="skills" className="bg-gray-800 py-10 overflow-hidden relative">
+        {/* Local animation style */}
+        <style>
+          {`
+          @keyframes scrollX {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(0%); }
+          }
+          .scroll-animation {
+            animation: scrollX 20s linear infinite;
+          }
+        `}
+        </style>
 
-      {/* Skills Section */}
-      <section id="skills" className="bg-gray-800 py-20 px-6">
-        <motion.h2
-          className="text-4xl font-bold text-center mb-12"
-          initial={{ scale: 0.8, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          Skills
-        </motion.h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 max-w-5xl mx-auto">
-          {skills.map(({ icon, name }, i) => (
-            <motion.div
-              key={i}
-              className="flex flex-col items-center cursor-default"
-              whileHover={{ scale: 1.15 }}
-            >
-              <div className="text-6xl mb-3">{icon}</div>
-              <p className="text-lg">{name}</p>
-            </motion.div>
-          ))}
+        <h2 className="text-4xl font-bold text-center mb-16 mt-10 text-white">Skills</h2>
+
+        <div className="overflow-hidden w-full">
+          <div className="flex gap-16 mb-16 whitespace-nowrap scroll-animation">
+            {repeatedSkills.map(({ icon, name }, i) => (
+              <div
+                key={i}
+                className="flex flex-col items-center text-center min-w-[120px]"
+              >
+                <div className="text-5xl mb-2">{icon}</div>
+                <p className="text-lg text-white">{name}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
+
       {/*Projects section*/}
       <section id="projects" className="py-20 px-6 max-w-7xl mx-auto">
         <motion.h2
