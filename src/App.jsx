@@ -1,12 +1,12 @@
 
-
-
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import emailjs from '@emailjs/browser';
 import {
   FaGithub,
   FaLinkedin,
   FaEnvelope,
+  FaWhatsapp,
   FaBars,
   FaTimes,
   FaReact,
@@ -14,16 +14,18 @@ import {
   FaDatabase,
   FaHtml5,
   FaCss3Alt,
+  FaMapMarkerAlt,
   FaJs,
 } from "react-icons/fa";
+import { Typed } from "react-typed";
 
 const NAV_LINKS = [
   { name: "Home", id: "home" },
   { name: "About", id: "about" },
   { name: "Skills", id: "skills" },
-  { name: "Education", id: "education" },
-  { name: "Experience", id: "experience" },
   { name: "Projects", id: "projects" },
+  { name: "Education", id: "education" },
+  // { name: "Experience", id: "experience" },
   { name: "Contact", id: "contact" },
 ];
 
@@ -32,7 +34,74 @@ export default function App() {
   const [navbarSolid, setNavbarSolid] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeSection, setActiveSection] = useState("home");
+  const text = "Frontend Developer || Passionate about Full-Stack Development";
+  const [displayText, setDisplayText] = useState("");
+  const [index, setIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
 
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(null); // success | error | null
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+  useEffect(() => {
+    emailjs.init("sgLfQ-UXwttGCY1Lh"); // Initialize with your public key
+  }, []);
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus(null);
+
+    emailjs
+      .send(
+        "service_dmeg6yo", // Replace with your EmailJS Service ID
+        "template_egbhpcm", // Replace with your EmailJS Template ID
+        {
+          from_name: form.name,
+          from_email: form.email,
+          message: form.message
+        },
+        form,
+        "sgLfQ-UXwttGCY1Lh" // Replace with your EmailJS Public Key
+      )
+      .then(
+        () => {
+          setStatus("success");
+          setForm({ name: "", email: "", message: "" });
+        },
+        () => {
+          setStatus("error");
+        }
+      )
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    const typingSpeed = isDeleting ? 50 : 100;
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        if (index < text.length) {
+          setDisplayText(text.slice(0, index + 1));
+          setIndex(index + 1);
+        } else {
+          setIsDeleting(true);
+        }
+      } else {
+        if (index > 0) {
+          setDisplayText(text.slice(0, index - 1));
+          setIndex(index - 1);
+        } else {
+          setIsDeleting(false);
+        }
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [index, isDeleting, text]);
   // scroll for navbar background and active section
   useEffect(() => {
     const handleScroll = () => {
@@ -70,12 +139,12 @@ export default function App() {
 
 
   const skills = [
-    { icon: <FaHtml5 className="text-orange-500" />, name: "HTML5" },
-    { icon: <FaCss3Alt className="text-blue-500" />, name: "CSS3" },
     { icon: <FaJs className="text-yellow-400" />, name: "JavaScript" },
     { icon: <FaReact className="text-cyan-400" />, name: "React" },
     { icon: <FaNodeJs className="text-green-500" />, name: "Node.js" },
     { icon: <FaDatabase className="text-purple-500" />, name: "MongoDB" },
+    { icon: <FaHtml5 className="text-orange-500" />, name: "HTML5" },
+    { icon: <FaCss3Alt className="text-blue-500" />, name: "CSS3" },
   ];
 
   const projects = [
@@ -211,7 +280,7 @@ export default function App() {
               transition={{ duration: 0.7 }}
             >
               Hi, I'm{" "}
-              <span className="text-green-400">Md. Shorifuzzaman</span>
+              <p className="text-green-400 mt-8"> <span className="mt-2">Md. Shorifuzzaman</span></p>
             </motion.h1>
 
             <motion.p
@@ -220,7 +289,8 @@ export default function App() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.7 }}
             >
-              Frontend Developer <span className="text-green-400">||</span> Passionate about Full-Stack Development
+              {displayText}
+              <span className="text-green-400">|</span>
             </motion.p>
 
             <motion.div
@@ -284,10 +354,7 @@ export default function App() {
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          I'm a dedicated developer with experience in building dynamic and
-          responsive websites. Skilled in both front-end and back-end
-          technologies, I love turning ideas into reality. Outside of coding, I
-          enjoy hiking, painting, and exploring new tech trends.
+          I'm a passionate developer with hands-on experience creating dynamic and responsive websites through personal projects and learning. Skilled in both front-end and back-end technologies, I enjoy turning ideas into functional applications. Outside of coding, I love traveling, watching movies, Playing chess, and exploring the latest tech trends.
         </motion.p>
       </section>
 
@@ -314,6 +381,77 @@ export default function App() {
           ))}
         </div>
       </section>
+      {/*Projects section*/}
+      <section id="projects" className="py-20 px-6 max-w-7xl mx-auto">
+        <motion.h2
+          className="text-4xl font-bold text-center mb-20"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          Featured Projects
+        </motion.h2>
+
+        <div className="grid md:grid-cols-2 gap-12">
+          {projects.map((project, i) => (
+            <motion.div
+              key={i}
+              className="bg-[#1a1a2e] rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row items-center md:items-stretch"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Project Image */}
+              <div className="bg-gray-900 flex-shrink-0 w-full md:w-1/2 overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
+              {/* Project Details */}
+              <div className="p-6 flex flex-col justify-between w-full md:w-1/2">
+                <div>
+                  <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
+                  <p className="text-gray-300 mb-4">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.techStack.map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="px-3 py-1 bg-gray-700 text-sm rounded-full"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex gap-2">
+                  <a
+                    href={project.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center bg-green-500 hover:bg-green-700 text-white py-2 px-2 rounded-lg transition-colors duration-300"
+                  >
+                    🔗Live Demo
+                  </a>
+                  <a
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors duration-300"
+                  >
+                    <FaGithub className="text-xl" />
+                    Github
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
       {/* Education Section */}
       <section
@@ -334,8 +472,8 @@ export default function App() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            <h3 className="font-semibold text-2xl">B.Sc. in Computer Science</h3>
-            <p>XYZ University, 2020 - 2024</p>
+            <h3 className="font-semibold text-2xl">B.Sc. in Computer Science and Engineering</h3>
+            <p>International University of Business Agriculture and Technology, 2022 - 2026</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0 }}
@@ -343,13 +481,13 @@ export default function App() {
             viewport={{ once: true }}
           >
             <h3 className="font-semibold text-2xl">HSC</h3>
-            <p>ABC College, 2018 - 2020</p>
+            <p>Agricultural University College, Mymensingh , 2018 - 2020</p>
           </motion.div>
         </div>
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="bg-gray-800 py-20 px-6">
+      {/* <section id="experience" className="bg-gray-800 py-20 px-6">
         <motion.h2
           className="text-4xl font-bold text-center mb-12"
           initial={{ y: 50, opacity: 0 }}
@@ -376,7 +514,7 @@ export default function App() {
             <p>Worked on backend API development and database design.</p>
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* Projects Section */}
       {/* <section id="projects" className="py-20 px-6 max-w-6xl mx-auto">
@@ -460,77 +598,6 @@ export default function App() {
         </AnimatePresence>
       </section> */}
 
-      <section id="projects" className="py-20 px-6 max-w-7xl mx-auto">
-        <motion.h2
-          className="text-4xl font-bold text-center mb-16"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          Featured Projects
-        </motion.h2>
-
-        <div className="grid md:grid-cols-2 gap-12">
-          {projects.map((project, i) => (
-            <motion.div
-              key={i}
-              className="bg-[#1a1a2e] rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row items-center md:items-stretch"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              {/* Project Image */}
-              <div className="bg-gray-900 flex-shrink-0 w-full md:w-1/2 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-
-              {/* Project Details */}
-              <div className="p-6 flex flex-col justify-between w-full md:w-1/2">
-                <div>
-                  <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
-                  <p className="text-gray-300 mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.techStack.map((tech, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1 bg-gray-700 text-sm rounded-full"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  <a
-                    href={project.liveLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center bg-green-500 hover:bg-green-700 text-white py-2 px-2 rounded-lg transition-colors duration-300"
-                  >
-                    🔗Live Demo
-                  </a>
-                  <a
-                    href={project.githubLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors duration-300"
-                  >
-                    <FaGithub className="text-xl" />
-                    Github
-                  </a>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
 
       {/* Contact Section */}
       <section id="contact" className="bg-gray-800 py-20 px-6">
@@ -545,22 +612,36 @@ export default function App() {
           >
             <h2 className="text-4xl font-bold mb-8">Contact Me</h2>
             <div className="space-y-6 text-lg text-gray-300">
+
               <p>
                 <FaEnvelope className="inline mr-2 text-green-400" />
-                youremail@example.com
+                shorifuzzamansoil2020@gmail.com
               </p>
               <p>
-                <FaLinkedin className="inline mr-2 text-green-400" />
-                <a href="#" className="hover:underline">
-                  linkedin.com/in/yourname
-                </a>
+                <FaWhatsapp className="inline mr-2 text-green-400" />
+                +880 1996386373
               </p>
-              <p>
-                <FaGithub className="inline mr-2 text-green-400" />
-                <a href="#" className="hover:underline">
-                  github.com/yourname
+              <a
+                href="https://www.google.com/maps/place/Dhaka,+Bangladesh"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center lg:justify-start "
+              >
+                <FaMapMarkerAlt className="inline mr-2 text-green-400" />
+                Dhaka, Bangladesh
+              </a>
+              <h2 className="text-xl font-bold mb-8">Connect with Me</h2>
+              <div className="text-4xl flex justify-center lg:justify-start gap-3">
+                <a href="https://github.com/Shorifuzzaman2020" target="_blank" aria-label="GitHub" className="hover:text-green-400 transition-colors duration-300">
+                  <FaGithub />
                 </a>
-              </p>
+                <a href="https://www.linkedin.com/in/mdshorifuzzaman2020/" target="_blank" aria-label="LinkedIn" className="hover:text-green-400 transition-colors duration-300">
+                  <FaLinkedin />
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=shorifuzzamansoil2020@gmail.com" target="_blank" aria-label="Email" className="hover:text-green-400 transition-colors duration-300">
+                  <FaEnvelope />
+                </a>
+              </div>
             </div>
           </motion.div>
 
@@ -572,31 +653,53 @@ export default function App() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <h3 className="text-3xl font-bold text-center mb-8">
-              Send me a message
-            </h3>
-            <form className="space-y-4">
+            <h3 className="text-3xl font-bold text-center mb-8">Send me a message</h3>
+            <form onSubmit={sendEmail} className="space-y-4">
               <input
                 type="text"
+                name="name"
                 placeholder="Your Name"
+                value={form.name}
+                onChange={handleChange}
                 className="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+                required
               />
               <input
                 type="email"
+                name="email"
                 placeholder="Your Email"
+                value={form.email}
+                onChange={handleChange}
                 className="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+                required
               />
               <textarea
+                name="message"
                 placeholder="Your Message"
                 rows="5"
+                value={form.message}
+                onChange={handleChange}
                 className="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+                required
               ></textarea>
+
               <button
                 type="submit"
-                className="w-full py-3 bg-green-500 hover:bg-green-600 rounded font-semibold transition-colors duration-300"
+                disabled={loading}
+                className={`w-full py-3 rounded font-semibold transition-colors duration-300 ${loading
+                  ? "bg-gray-500 cursor-not-allowed"
+                  : "bg-green-500 hover:bg-green-600"
+                  }`}
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </button>
+
+              {status === "success" && (
+                <p className="text-green-400 text-center">✅ Message sent successfully!</p>
+              )}
+              {status === "error" && (
+                <p className="text-red-400 text-center">❌ Failed to send message. Try again later.</p>
+              )}
             </form>
           </motion.div>
 
@@ -606,7 +709,7 @@ export default function App() {
 
       {/* Footer */}
       <footer className="py-6 text-center text-gray-500">
-        © {new Date().getFullYear()} Your Name. All rights reserved.
+        © {new Date().getFullYear()} Md. Shorifuzzaman. All rights reserved.
       </footer>
     </div>
   );
