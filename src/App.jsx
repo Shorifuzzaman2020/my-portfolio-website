@@ -8,6 +8,7 @@ import { SiCplusplus } from "react-icons/si";
 import { SiExpress } from "react-icons/si";
 import { BsFillCSquareFill } from "react-icons/bs";
 import { FaDownload } from "react-icons/fa6";
+import { RiTailwindCssFill } from "react-icons/ri";
 import {
   FaGithub,
   FaLinkedin,
@@ -155,7 +156,22 @@ export default function App() {
     { icon: <FaJs className="text-yellow-400" />, name: "JavaScript" },
     { icon: <FaReact className="text-cyan-400" />, name: "React" },
   ];
-  const repeatedSkills = [...skills];
+  const repeatedSkills = [...skills, ...skills, ...skills, ...skills];
+  const techIcons = {
+    "C": <BsFillCSquareFill className="text-blue-400" />,
+    "C++": <SiCplusplus className="text-blue-600" />,
+    "Java": <FaJava className="text-red-500" />,
+    "C#": <TbBrandCSharp className="text-green-400" />,
+    "HTML5": <FaHtml5 className="text-orange-500" />,
+    "CSS3": <FaCss3Alt className="text-blue-500" />,
+    "Express.js": <SiExpress className="text-gray-300" />,
+    "MongoDB": <FaDatabase className="text-purple-500" />,
+    "Node.js": <FaNodeJs className="text-green-500" />,
+    "JavaScript": <FaJs className="text-yellow-400" />,
+    "React": <FaReact className="text-cyan-400" />,
+    "TailwindCSS": <RiTailwindCssFill className="text-cyan-400" />,
+  };
+
   const projects = [
     {
       title: "Tutor Solution",
@@ -164,7 +180,7 @@ export default function App() {
         "Built with React, Tailwind, and Framer Motion. Fully responsive and animated.",
       liveLink: "https://fir-auth-5fe90.web.app/",
       githubLink: "https://github.com/Shorifuzzaman2020/Tutor-solution-client-side",
-      techStack: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "HTML"],
+      techStack: ["React", "Node.js", "Express.js", "MongoDB", "TailwindCSS", "HTML5"],
       challenges:
         "Learning Framer Motion for animations was challenging but rewarding.",
       improvements:
@@ -178,7 +194,7 @@ export default function App() {
         "Uses MERN stack with secure authentication and Stripe integration.",
       liveLink: "https://scholarship-handle.web.app/",
       githubLink: "https://github.com/Shorifuzzaman2020/Scholarship-management-system-client-side",
-      techStack: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "HTML"],
+      techStack: ["React", "Node.js", "Express.js", "MongoDB", "TailwindCSS", "HTML5"],
       challenges: "Handling payments and authentication securely.",
       improvements: "Add recommendation engine.",
       image: "/screencapture-scholarship-handle-web-app-2025-08-11-23_15_02.png",
@@ -190,7 +206,7 @@ export default function App() {
         "Built using React, Chart.js, and MQTT for real-time IoT updates.",
       liveLink: "https://event-discovery-7571a.web.app/",
       githubLink: "https://github.com/Shorifuzzaman2020/Recipe-sharing-client-side",
-      techStack: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "HTML"],
+      techStack: ["React", "Node.js", "Express.js", "MongoDB", "TailwindCSS", "HTML5"],
       challenges: "Real-time data syncing.",
       improvements: "Add mobile app companion.",
       image: "/screencapture-event-discovery-7571a-web-app-2025-08-11-23_12_07.png",
@@ -202,7 +218,7 @@ export default function App() {
         "Built using React, Chart.js, and MQTT for real-time IoT updates.",
       liveLink: "https://event-discovery-project.web.app/",
       githubLink: "https://github.com/Shorifuzzaman2020/Event-Explorer",
-      techStack: ["React", "Javascript", "Tailwind CSS", "HTML"],
+      techStack: ["React", "Javascript", "TailwindCSS", "HTML5"],
       challenges: "Real-time data syncing.",
       improvements: "Add mobile app companion.",
       image: "/screencapture-event-discovery-project-web-app-2025-08-11-23_10_04.png",
@@ -216,7 +232,7 @@ export default function App() {
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${navbarSolid ? "bg-gray-900 shadow-lg" : "bg-transparent"
           }`}
       >
-        <nav className="container mx-auto flex justify-between items-center p-4 md:px-8">
+        <nav className="w-full flex justify-between items-center p-4 md:px-8">
           <div className="text-xl font-bold cursor-pointer select-none" onClick={() => handleNavClick("home")}>
             Md. Shorifuzzaman
           </div>
@@ -272,12 +288,12 @@ export default function App() {
       </header>
 
       {/* Spacer for fixed navbar */}
-      <div className=" md:h-4"></div>
+      <div className="h-4 md:h-20"></div>
 
       {/* Hero Section */}
       <section
         id="home"
-        className="min-h-screen flex flex-col items-center justify-center text-center px-4"
+        className="min-h-screen flex flex-col items-center justify-center text-center px-4 md:px-12"
       >
         <div className="flex flex-col-reverse sm:flex-row items-center sm:items-start gap-8 sm:gap-12">
           {/* Left Content */}
@@ -394,11 +410,11 @@ export default function App() {
         <style>
           {`
           @keyframes scrollX {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(0%); }
+            0% { transform: translateX(-400%); }
+            400% { transform: translateX(0%); }
           }
           .scroll-animation {
-            animation: scrollX 20s linear infinite;
+            animation: scrollX 60s linear infinite;
           }
         `}
         </style>
@@ -431,7 +447,7 @@ export default function App() {
           Featured Projects
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-12">
           {projects.map((project, i) => (
             <motion.div
               key={i}
@@ -446,24 +462,24 @@ export default function App() {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover lg:object-contain hover:scale-105 transition-transform duration-500"
                 />
               </div>
 
               {/* Project Details */}
               <div className="p-6 flex flex-col justify-between w-full md:w-1/2">
                 <div>
-                  <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
+                  <h3 className="text-3xl font-bold mb-3">{project.title}</h3>
                   <p className="text-gray-300 mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.techStack.map((tech, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1 bg-gray-700 text-sm rounded-full"
-                      >
-                        {tech}
-                      </span>
+                  <h1 className="text-2xl font-bold mb-4">Technology Used</h1>
+                  <div className="flex flex-wrap gap-4 mb-6">
+                    {project.techStack.map((tech, index) => (
+                      <div key={index} className="flex items-center md:text-2xl lg:text-sm gap-4">
+                        {techIcons[tech] && <span>{techIcons[tech]}</span>} {/* Show icon if exists */}
+                        <span>{tech}</span>
+                      </div>
                     ))}
+
                   </div>
                 </div>
 
@@ -555,88 +571,6 @@ export default function App() {
         </div>
       </section> */}
 
-      {/* Projects Section */}
-      {/* <section id="projects" className="py-20 px-6 max-w-6xl mx-auto">
-        <motion.h2
-          className="text-4xl font-bold text-center mb-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          Projects
-        </motion.h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {projects.map((project, i) => (
-            <motion.div
-              key={i}
-              className="bg-gray-800 rounded-lg p-6 cursor-pointer shadow-lg hover:shadow-green-500/50"
-              whileHover={{ scale: 1.05 }}
-              onClick={() => setSelectedProject(project)}
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") setSelectedProject(project);
-              }}
-              aria-label={`Open details for ${project.title}`}
-            >
-              <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-              <p className="text-gray-400">{project.description}</p>
-            </motion.div>
-          ))}
-        </div>
-
-        <AnimatePresence>
-          {selectedProject && (
-            <motion.div
-              className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
-              aria-modal="true"
-              role="dialog"
-            >
-              <motion.div
-                className="bg-gray-900 rounded-lg p-6 max-w-lg w-full relative"
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0.8 }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
-                <p className="mb-4">{selectedProject.details}</p>
-                <p><strong>Tech Stack:</strong> {selectedProject.techStack}</p>
-                <p><strong>Challenges:</strong> {selectedProject.challenges}</p>
-                <p><strong>Improvements:</strong> {selectedProject.improvements}</p>
-                <div className="flex gap-4 mt-6 justify-end">
-                  <a
-                    href={selectedProject.liveLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-green-500 px-4 py-2 rounded hover:bg-green-600"
-                  >
-                    Live Demo
-                  </a>
-                  <a
-                    href={selectedProject.githubLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-gray-700 px-4 py-2 rounded hover:bg-gray-600"
-                  >
-                    GitHub
-                  </a>
-                  <button
-                    onClick={() => setSelectedProject(null)}
-                    className="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
-                  >
-                    Close
-                  </button>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </section> */}
-
 
       {/* Contact Section */}
       <section id="contact" className="bg-gray-800 py-20 px-6">
@@ -664,13 +598,13 @@ export default function App() {
                 href="https://www.google.com/maps/place/Dhaka,+Bangladesh"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center lg:justify-start "
+                className="flex items-center justify-center md:justify-start "
               >
                 <FaMapMarkerAlt className="inline mr-2 text-green-400" />
                 Dhaka, Bangladesh
               </a>
               <h2 className="text-xl font-bold mb-8">Connect with Me</h2>
-              <div className="text-4xl flex justify-center lg:justify-start gap-3">
+              <div className="text-4xl flex justify-center md:justify-start gap-3">
                 <a href="https://github.com/Shorifuzzaman2020" target="_blank" aria-label="GitHub" className="hover:text-green-400 transition-colors duration-300">
                   <FaGithub />
                 </a>
