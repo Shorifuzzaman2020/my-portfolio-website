@@ -342,15 +342,14 @@ export default function App() {
                 onClick={() => {
                   // Open preview in a new tab
                   window.open(
-                    "https://drive.google.com/file/d/1rh3Kz3_C71ahbqlkqTCWE_wSz3AXcc3g/view?usp=sharing",
+                    "https://drive.google.com/file/d/1Kj40NaTJtAUzqVi-H_2kFslO3D8AmAY8/view?usp=sharing",
                     "_blank"
                   );
 
-                  // Trigger download
+                  // Trigger direct download
                   const link = document.createElement("a");
-                  link.href =
-                    "https://drive.google.com/uc?export=download&id=1rh3Kz3_C71ahbqlkqTCWE_wSz3AXcc3g";
-                  link.download = "YourName_Resume.pdf";
+                  link.href = "https://drive.google.com/uc?export=download&id=1Kj40NaTJtAUzqVi-H_2kFslO3D8AmAY8";
+                  link.setAttribute("download", "MD_SHORIFUZZAMAN_RESUME.pdf");
                   document.body.appendChild(link);
                   link.click();
                   document.body.removeChild(link);
@@ -359,6 +358,7 @@ export default function App() {
               >
                 <FaDownload /> Resume
               </button>
+
             </motion.div>
           </div>
 
